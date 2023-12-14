@@ -1,7 +1,7 @@
 import os
 
 # from llama_index import download_loader
-from langchain.document_loaders import PreprocessLoader
+from langchain_community.document_loaders import PreprocessLoader
 from langchain_core.documents import Document
 
 API_KEY = (

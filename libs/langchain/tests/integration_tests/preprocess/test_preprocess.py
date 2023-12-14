@@ -13,7 +13,7 @@ def test_preprocess_load_document():
         os.path.dirname(os.path.abspath(__file__)), "preprocess_test.pdf"
     )
     loader = PreprocessLoader(api_key=API_KEY, filepath=filepath)
-    documents = loader.load_data()
+    documents = loader.load()
 
     assert isinstance(documents, list)
     assert all(isinstance(doc, Document) for doc in documents)

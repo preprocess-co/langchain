@@ -4,17 +4,23 @@ from typing import List
 from langchain_community.document_loaders.base import BaseLoader
 from langchain_core.documents import Document
 
-from pypreprocess import Preprocess
-
 
 class PreprocessLoader(BaseLoader):
     def __init__(self, api_key: str, *args, **kwargs):
+
+        try:
+            from pypreprocess import Preprocess
+        except ImportError:
+            raise ImportError(
+                "`pypreprocess` package not found, please run `pip install pypreprocess`"
+            )
+
         if api_key is None or api_key == "":
             raise ValueError(
                 "Please provide an api key to be used while doing the auth with the system."
             )
 
-        _info = {}
+        _options = {}
         self._preprocess = Preprocess(api_key)
         self._filepath = None
         self._process_id = None
@@ -23,23 +29,22 @@ class PreprocessLoader(BaseLoader):
             if key == "filepath":
                 self._filepath = value
                 self._preprocess.set_filepath(value)
-            if key == "process_id":
+            
+            elif key == "process_id":
                 self._process_id = value
                 self._preprocess.set_process_id(value)
-            elif key in [
-                "merge",
-                "max",
-                "min",
-                "min_min",
-                "table_output",
-                "repeat_title",
-                "table_header",
-                "lamguage",
-            ]:
-                _info[key] = value
 
-        if _info != {}:
-            self._preprocess.set_info(_info)
+            elif key in ["table_output_format", "table_output"]:
+                self._options["table_output_format"] = value
+
+            elif key in ["repeat_table_header", "table_header"]:
+                self._options["repeat_table_header"] = value
+
+            elif key in ["merge", "repeat_title"]:
+                self._options[key] = value
+
+        if _options != {}:
+            self._preprocess.set_options(_options)
 
         if self._filepath is None and self._process_id is None:
             raise ValueError(

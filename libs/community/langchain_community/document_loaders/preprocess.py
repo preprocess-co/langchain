@@ -35,13 +35,13 @@ class PreprocessLoader(BaseLoader):
                 self._preprocess.set_process_id(value)
 
             elif key in ["table_output_format", "table_output"]:
-                self._options["table_output_format"] = value
+                _options["table_output_format"] = value
 
             elif key in ["repeat_table_header", "table_header"]:
-                self._options["repeat_table_header"] = value
+                _options["repeat_table_header"] = value
 
             elif key in ["merge", "repeat_title"]:
-                self._options[key] = value
+                _options[key] = value
 
         if _options != {}:
             self._preprocess.set_options(_options)

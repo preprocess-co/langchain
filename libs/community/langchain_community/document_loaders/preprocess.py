@@ -6,7 +6,7 @@ from langchain_core.documents import Document
 
 
 class PreprocessLoader(BaseLoader):
-    def __init__(self, api_key: str, *args, **kwargs):
+    def __init__(self, path, *args, **kwargs):
         """
             Preprocess is an API service that splits any kind of document into optimal chunks of text for use in language model tasks. 
             Given documents in input Preprocess splits them into chunks of text that respect the layout and semantics of the original document. 
@@ -26,20 +26,26 @@ class PreprocessLoader(BaseLoader):
             raise ImportError(
                 "`pypreprocess` package not found, please run `pip install pypreprocess`"
             )
-
-        if api_key is None or api_key == "":
-            raise ValueError(
-                "Please provide an api key to be used while doing the auth with the system."
-            )
+        api_key = None
+        if "api_key" in kwargs:
+            api_key = kwargs['api_key']
+            if api_key is None or api_key == "":
+                raise ValueError(
+                    "Please provide an api key to be used while doing the auth with the system."
+                )
+        del kwargs['api_key']
 
         _options = {}
         self._preprocess = Preprocess(api_key)
         self._filepath = None
         self._process_id = None
 
+        if path is not None or path != "":
+            self._filepath = path
+
         for key, value in kwargs.items():
             # You can set a filepath to let preprocess convert and chunk it for you
-            if key == "filepath":
+            if key == "filepath" and self._filepath is None:
                 self._filepath = value
                 self._preprocess.set_filepath(value)
             

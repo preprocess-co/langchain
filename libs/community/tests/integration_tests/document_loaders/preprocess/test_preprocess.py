@@ -9,6 +9,7 @@ API_KEY = (
     ""  # you've to contact support@preprocess.co for generating an api key for you...
 )
 
+
 def test_preprocess_load_document():
     filepath = os.path.join(
         os.path.dirname(os.path.abspath(__file__)), "preprocess_test.pdf"

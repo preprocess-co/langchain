@@ -1,37 +1,45 @@
 """Preprocess Reader."""
 import os
 from typing import List
-from langchain_community.document_loaders.base import BaseLoader
+
 from langchain_core.documents import Document
+
+from langchain_community.document_loaders.base import BaseLoader
 
 
 class PreprocessLoader(BaseLoader):
     def __init__(self, path, *args, **kwargs):
         """
-            Preprocess is an API service that splits any kind of document into optimal chunks of text for use in language model tasks. 
-            Given documents in input Preprocess splits them into chunks of text that respect the layout and semantics of the original document. 
-            We split the content by taking into account sections, paragraphs, lists, images, data tables, text tables, 
-            and slides, and following the content semantics for long texts.
+            Preprocess is an API service that splits any kind of document into 
+            optimal chunks of text for use in language model tasks. Given documents 
+            as input Preprocess splits them into chunks of text that respect the layout 
+            and semantics of the original document. 
+            We split the content by taking into account sections, paragraphs, 
+            lists, images, data tables, text tables, and slides 
+            and following the content semantics for long texts.
             We support:
                 - PDFs
                 - Microsoft Office documents (Word, PowerPoint, Excel)
                 - OpenOffice documents (ods, odt, odp)
                 - HTML content (web pages, articles, emails)
                 - Plain text
-            You need a Preprocess API Key to use the SDK, to get one please reach out to support@preprocess.co asking for an API key.
+            You need a Preprocess API Key to use the SDK, 
+            to get one please reach out to support@preprocess.co asking for an API key.
         """
         try:
             from pypreprocess import Preprocess
         except ImportError:
             raise ImportError(
-                "`pypreprocess` package not found, please run `pip install pypreprocess`"
+                "`pypreprocess` package not found, please run `pip install "+
+                "pypreprocess`"
             )
         api_key = None
         if "api_key" in kwargs:
             api_key = kwargs['api_key']
             if api_key is None or api_key == "":
                 raise ValueError(
-                    "Please provide an api key to be used while doing the auth with the system."
+                    "Please provide an api key to be used while"+
+                    "doing the auth with the system."
                 )
         del kwargs['api_key']
 
@@ -49,7 +57,8 @@ class PreprocessLoader(BaseLoader):
                 self._filepath = value
                 self._preprocess.set_filepath(value)
             
-            # or if you already called it before and have the process_id, you can pass it to get you back the chunks again
+            # or if you already called it before and have the process_id, 
+            # you can pass it to get you back the chunks again
             elif key == "process_id":
                 self._process_id = value
                 self._preprocess.set_process_id(value)
@@ -67,7 +76,8 @@ class PreprocessLoader(BaseLoader):
         if _options != {}:
             self._preprocess.set_options(_options)
 
-        # Remember to path either filepath or process_id, both of them can't be None or not passed
+        # Remember to path either filepath or process_id, 
+        # both of them can't be None or not passed
         if self._filepath is None and self._process_id is None:
             raise ValueError(
                 "Please provide either filepath or process_id to handle the resutls."
@@ -77,9 +87,11 @@ class PreprocessLoader(BaseLoader):
 
     def load(self, return_whole_document = False) -> List[Document]:
         """
-            This function loads to you the chunks from preprocess sdk and return it to you
-            If you want to return only the extracted text and handle it with custom pipelines set `return_whole_document = True` 
-            Otherwise this function will return to you a list of Documents each one containing a chunk with metadata of filename
+            This function loads to you the chunks from preprocess sdk 
+            and return it to you. If you want to return only the extracted text 
+            and handle it with custom pipelines set `return_whole_document = True` 
+            Otherwise this function will return to you a list of Documents each one 
+            containing a chunk with metadata of filename
         """
         if self._chunks is None:
             if self._process_id is not None:
@@ -105,7 +117,8 @@ class PreprocessLoader(BaseLoader):
                     ]
             else:
                 raise Exception(
-                    "There is error happened during handling your file, please try again."
+                    "There is error happened during handling your file,"+
+                    " please try again."
                 )
 
         else:
@@ -127,7 +140,8 @@ class PreprocessLoader(BaseLoader):
 
     def get_process_id(self):
         """
-            This function you can call it to give you back the process_id to store it as you want to use it later.
+            This function you can call it to give you back the process_id 
+            to store it as you want to use it later.
         """
         return self._process_id
 

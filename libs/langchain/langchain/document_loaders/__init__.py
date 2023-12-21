@@ -79,9 +79,6 @@ from langchain.document_loaders.email import (
     OutlookMessageLoader,
     UnstructuredEmailLoader,
 )
-from langchain.document_loaders.preprocess import (
-    PreprocessLoader
-)
 from langchain.document_loaders.epub import UnstructuredEPubLoader
 from langchain.document_loaders.etherscan import EtherscanLoader
 from langchain.document_loaders.evernote import EverNoteLoader
@@ -146,6 +143,7 @@ from langchain.document_loaders.pdf import (
 )
 from langchain.document_loaders.polars_dataframe import PolarsDataFrameLoader
 from langchain.document_loaders.powerpoint import UnstructuredPowerPointLoader
+from langchain.document_loaders.preprocess import PreprocessLoader
 from langchain.document_loaders.psychic import PsychicLoader
 from langchain.document_loaders.pubmed import PubMedLoader
 from langchain.document_loaders.pyspark_dataframe import PySparkDataFrameLoader

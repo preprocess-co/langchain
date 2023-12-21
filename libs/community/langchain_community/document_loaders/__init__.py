@@ -87,9 +87,6 @@ from langchain_community.document_loaders.email import (
     OutlookMessageLoader,
     UnstructuredEmailLoader,
 )
-from langchain_community.document_loaders.preprocess import (
-    PreprocessLoader
-)
 from langchain_community.document_loaders.epub import UnstructuredEPubLoader
 from langchain_community.document_loaders.etherscan import EtherscanLoader
 from langchain_community.document_loaders.evernote import EverNoteLoader
@@ -158,6 +155,7 @@ from langchain_community.document_loaders.pdf import (
 )
 from langchain_community.document_loaders.polars_dataframe import PolarsDataFrameLoader
 from langchain_community.document_loaders.powerpoint import UnstructuredPowerPointLoader
+from langchain_community.document_loaders.preprocess import PreprocessLoader
 from langchain_community.document_loaders.psychic import PsychicLoader
 from langchain_community.document_loaders.pubmed import PubMedLoader
 from langchain_community.document_loaders.pyspark_dataframe import (
@@ -1055,6 +1053,7 @@ __all__ = [
     "OracleDocLoader",
     "OracleTextSplitter",
     "OutlookMessageLoader",
+    "PreprocessLoader",
     "PDFMinerLoader",
     "PDFMinerPDFasHTMLLoader",
     "PDFPlumberLoader",

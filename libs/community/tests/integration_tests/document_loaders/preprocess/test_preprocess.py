@@ -1,8 +1,9 @@
 import os
 
+from langchain_core.documents import Document
+
 # from llama_index import download_loader
 from langchain_community.document_loaders import PreprocessLoader
-from langchain_core.documents import Document
 
 API_KEY = (
     ""  # you've to contact support@preprocess.co for generating an api key for you...

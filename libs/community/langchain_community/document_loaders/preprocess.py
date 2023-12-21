@@ -53,7 +53,7 @@ class PreprocessLoader(BaseLoader):
 
         self._chunks = None
 
-    def load(self) -> List[Document]:
+    def load(self, return_whole_document = False) -> List[Document]:
         if self._chunks is None:
             if self._process_id is not None:
                 self._get_data_by_process()
@@ -61,6 +61,35 @@ class PreprocessLoader(BaseLoader):
                 self._get_data_by_filepath()
 
             if self._chunks is not None:
+                if return_whole_document is True:
+                    return [
+                        Document(
+                            text=" ".join(self._chunks),
+                            metadata={"filename": os.path.basename(self._filepath)},
+                        )
+                    ]
+                else:
+                    return [
+                        Document(
+                            text=chunk,
+                            metadata={"filename": os.path.basename(self._filepath)},
+                        )
+                        for chunk in self._chunks
+                    ]
+            else:
+                raise Exception(
+                    "There is error happened during handling your file, please try again."
+                )
+
+        else:
+            if return_whole_document is True:
+                return [
+                    Document(
+                        text=" ".join(self._chunks),
+                        metadata={"filename": os.path.basename(self._filepath)},
+                    )
+                ]
+            else:
                 return [
                     Document(
                         text=chunk,
@@ -68,19 +97,6 @@ class PreprocessLoader(BaseLoader):
                     )
                     for chunk in self._chunks
                 ]
-            else:
-                raise Exception(
-                    "There is error happened during handling your file, please try again."
-                )
-
-        else:
-            return [
-                Document(
-                    text=chunk,
-                    metadata={"filename": os.path.basename(self._filepath)},
-                )
-                for chunk in self._chunks
-            ]
 
     def get_process_id(self):
         return self._process_id

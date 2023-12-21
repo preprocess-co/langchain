@@ -49,7 +49,7 @@ class PreprocessLoader(BaseLoader):
                 self._filepath = value
                 self._preprocess.set_filepath(value)
             
-            # or if you alread called it before and have the process_id, you can pass it to get you back the chunks again
+            # or if you already called it before and have the process_id, you can pass it to get you back the chunks again
             elif key == "process_id":
                 self._process_id = value
                 self._preprocess.set_process_id(value)

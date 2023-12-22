@@ -55,7 +55,8 @@ data
 
 </CodeOutputBlock>
 
-You can use PreprocessLeader to load your html file into document format too
+## Using Preprocess
+You can use `PreprocessLeader` to load HTML documents and obtain chunks for downstream use in generating embeddings. `PreprocessLoader` automatically creates optimal text chunks based on the original document's layout and content semantics. For this reason, you shouldn't apply `TextSplitter`s to `Document`s returned by the `load()` method.
 
 ```python
 from langchain.document_loaders import PreprocessLeader
@@ -63,12 +64,12 @@ from langchain.document_loaders import PreprocessLeader
 
 
 ```python
-loader = PreprocessLeader("path/to/your/file.html", api_key="YOUR_API_KEY...")
+loader = PreprocessLeader("example_data/fake-content.html", api_key="PREPROCESS_API_KEY")
 data = loader.load()
 data
 ```
 
-If you want to return only the extracted text and handle it with custom pipelines set `return_whole_document = True` 
+If you want to return only the extracted text and handle it with custom `Document transformers` set `return_whole_document = True` 
 
 ```python
 data = loader.load(return_whole_document = True)

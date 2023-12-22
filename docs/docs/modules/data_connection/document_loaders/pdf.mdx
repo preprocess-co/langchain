@@ -206,6 +206,39 @@ print(data)
 
 </CodeOutputBlock>
 
+## Using Preprocess
+You can use `PreprocessLeader` to load PDF documents and obtain chunks for downstream use in generating embeddings. `PreprocessLoader` automatically creates optimal text chunks based on the original document's layout and content semantics. For this reason, you shouldn't apply `TextSplitter`s to `Document`s returned by the `load()` method.
+
+```python
+from langchain.document_loaders import PreprocessLeader
+```
+
+
+```python
+loader = PreprocessLeader("example_data/layout-parser-paper.pdf", api_key="PREPROCESS_API_KEY")
+```
+
+
+```python
+data = loader.load()
+```
+
+```python
+print(len(data))
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    42
+```
+
+If you want to return only the extracted text and handle it with custom `Document transformers` set `return_whole_document = True` 
+
+```python
+data = loader.load(return_whole_document = True)
+```
+
 ## Using PyPDFium2
 
 
@@ -436,25 +469,4 @@ Besides the AWS configuration, it is very similar to the other PDF loaders, whil
 from langchain.document_loaders import AmazonTextractPDFLoader
 loader = AmazonTextractPDFLoader("example_data/alejandro_rosalez_sample-small.jpeg")
 documents = loader.load()
-```
-
-
-You can use PreprocessLeader to load your pdf file into document format too
-
-```python
-from langchain.document_loaders import PreprocessLeader
-```
-
-
-```python
-loader = PreprocessLeader("path/to/your/file.pdf", api_key="YOUR_API_KEY...")
-data = loader.load()
-data
-```
-
-If you want to return only the extracted text and handle it with custom pipelines set `return_whole_document = True` 
-
-```python
-data = loader.load(return_whole_document = True)
-data
 ```

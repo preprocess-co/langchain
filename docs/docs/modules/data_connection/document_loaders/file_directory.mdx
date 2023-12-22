@@ -67,7 +67,21 @@ docs = loader.load()
 ## Change loader class
 By default this uses the `UnstructuredLoader` class. However, you can change up the type of loader pretty easily.
 
+### Preprocess Loader
+If you need to convert files and to get the chunks for generating embeddings you can use [PreprocessLoader](/docs/integrations/document_loaders/preprocess).
+You shouldn't apply `TextSplitter`s on `Document`s returned by `load()` method, `PreprocessLoader` automatically generates optimal chunks of text based on the original document layout and content semantics.
 
+```python
+from langchain.document_loaders import PreprocessLoader
+
+loader = DirectoryLoader("../", loader_cls=PreprocessLeader، loader_kwargs={"api_key": "PREPROCESS_API_KEY"})
+docs = loader.load()
+```
+
+
+
+### Text Loader
+If you need to load text files, use the `TextLoader`.
 ```python
 from langchain.document_loaders import TextLoader
 ```
@@ -95,6 +109,7 @@ len(docs)
 
 </CodeOutputBlock>
 
+### Python Loader
 If you need to load Python source code files, use the `PythonLoader`.
 
 
@@ -279,28 +294,3 @@ doc_sources
 ```
 
 </CodeOutputBlock>
-
-
-### You can use PreprocessLeader to load your file 
-You can initialise PreprocessLeader with a filepath and Preprocess SDK will connect with the system with your API Key and convert and chunk it for you 
-
-```python
-from langchain.document_loaders import PreprocessLeader
-
-path = "your/dir/path"
-loader = DirectoryLoader(path, loader_cls=PreprocessLeader، loader_kwargs={"api_key": "YOUR_API_KEY..."})
-loader.load()
-
-```
-
-Or if you already called PreprocessLoader and have a process_id you can pass it instead of filepath and call load
-
-
-```python
-from langchain.document_loaders import PreprocessLeader
-
-path = "your/dir/path"
-loader = DirectoryLoader(path, loader_cls=PreprocessLeader، loader_kwargs={"api_key": "YOUR_API_KEY...", "process_id": "YOUR_PROCESS_ID..."})
-loader.load()
-
-```

@@ -1053,7 +1053,6 @@ __all__ = [
     "OracleDocLoader",
     "OracleTextSplitter",
     "OutlookMessageLoader",
-    "PreprocessLoader",
     "PDFMinerLoader",
     "PDFMinerPDFasHTMLLoader",
     "PDFPlumberLoader",

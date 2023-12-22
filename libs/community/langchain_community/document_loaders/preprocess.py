@@ -146,7 +146,7 @@ class PreprocessLoader(BaseLoader):
     def get_process_id(self):
         """
         process_id allows you to initialize the loader
-        wihtout chunking the document again.
+        without chunking the document again.
         """
         return self._process_id
 

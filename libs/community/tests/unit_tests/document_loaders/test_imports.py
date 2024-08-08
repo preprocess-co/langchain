@@ -119,6 +119,7 @@ EXPECTED_ALL = [
     "OracleDocLoader",
     "OracleTextSplitter",
     "OutlookMessageLoader",
+    "PreprocessLoader",
     "PDFMinerLoader",
     "PDFMinerPDFasHTMLLoader",
     "PDFPlumberLoader",
@@ -196,12 +197,7 @@ EXPECTED_ALL = [
     "XorbitsLoader",
     "YoutubeAudioLoader",
     "YoutubeLoader",
-<<<<<<< HEAD
-    "YuqueLoader",
-    "PreprocessLoader"
-=======
     "PreprocessLoader",
->>>>>>> 53f67a1fe (Update after running `poetry run ruff format`)
 ]
 
 

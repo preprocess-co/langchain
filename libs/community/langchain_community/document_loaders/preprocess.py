@@ -72,7 +72,14 @@ class PreprocessLoader(BaseLoader):
             elif key in ["repeat_table_header", "table_header"]:
                 _options["repeat_table_header"] = value
 
-            elif key in ["merge", "repeat_title"]:
+            elif key in [
+                    "merge", 
+                    "repeat_title",
+                    "keep_header",
+                    "keep_footer",
+                    "smart_header"
+                    "image_text"
+                ]:
                 _options[key] = value
 
         if _options != {}:

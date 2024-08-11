@@ -77,7 +77,7 @@ class PreprocessLoader(BaseLoader):
                     "repeat_title",
                     "keep_header",
                     "keep_footer",
-                    "smart_header"
+                    "smart_header",
                     "image_text"
                 ]:
                 _options[key] = value
